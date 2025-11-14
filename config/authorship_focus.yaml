@@ -1,0 +1,46 @@
+analysis_flags:
+  sentence_stats: true
+  pattern_metrics: true
+  word_list_metrics: true
+  lexical_metrics: true
+regex_patterns:
+  - name: rhetorical_contrast
+    scope: sentence
+    variants:
+      - pattern: 'however[,\s]+'
+      - pattern: 'on\s+the\s+other\s+hand'
+  - name: contrastive_definition
+    scope: sentence
+    variants:
+      - pattern: 'not\s+(?:just|only)\s+[^,]+,?\s+(?:but|rather)'
+      - pattern: 'not\s+only\s+.+?\bbut\b'
+      - pattern: 'it''s\s+not\s+just\s+.+?,\s+it''s\s+.+?'
+  - name: enumerations
+    scopes:
+      - sentence
+      - paragraph
+    variants:
+      - pattern: '\b(first|second|third|finally)\b'
+      - pattern: '\b(1\.|2\.|3\.)'
+word_lists:
+  function_words:
+    description: top discriminators for authorship
+    terms:
+      - and
+      - the
+      - but
+      - however
+      - therefore
+  hedges:
+    description: hedging devices
+    terms:
+      - maybe
+      - perhaps
+      - likely
+      - roughly
+      - apparently
+output:
+  format: json
+  verbose: true
+metrics:
+  normalization_basis: 1000
