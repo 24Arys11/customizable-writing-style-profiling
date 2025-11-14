@@ -9,7 +9,12 @@ from .aggregator import Aggregator
 from .modules import (
     LexicalMetrics,
     PatternMatchingModule,
+    PunctuationMetrics,
+    RhythmMetrics,
     SentenceMetrics,
+    SentimentMetrics,
+    SemanticMetrics,
+    SyntaxMetrics,
     WordListMetrics,
 )
 from .preprocessing import Preprocessor
@@ -35,6 +40,11 @@ class TextAnalyzer:
             PatternMatchingModule(self._config),
             WordListMetrics(self._config),
             LexicalMetrics(self._config),
+            SyntaxMetrics(self._config),
+            PunctuationMetrics(self._config),
+            SentimentMetrics(self._config),
+            SemanticMetrics(self._config),
+            RhythmMetrics(self._config),
         ]
         return [module for module in modules if module.enabled()]
 

@@ -3,6 +3,11 @@ analysis_flags:
   pattern_metrics: true
   word_list_metrics: true
   lexical_metrics: true
+  syntax_metrics: true
+  punctuation_metrics: true
+  sentiment_metrics: true
+  semantic_metrics: true
+  rhythm_metrics: true
 regex_patterns:
   - name: contrastive_definition
     scope: sentence
@@ -15,6 +20,43 @@ regex_patterns:
     variants:
       - pattern: 'doesn''t\s+feel\s+like\s+.+?,\s+it\s+feels\s+like\s+.+?'
       - pattern: 'it\s+isn''t\s+really\s+.+?,\s+it''s\s+.+?'
+  - name: enumeration_markers
+    scope: sentence
+    variants:
+      - pattern: '\b(?:first|firstly|initially|to\s+begin\s+with)\b'
+      - pattern: '\b(?:second|secondly|next|then|furthermore|additionally|moreover)\b'
+      - pattern: '\b(?:third|thirdly|finally|lastly|in\s+conclusion|ultimately)\b'
+      - pattern: '\b(?:on\s+one\s+hand|on\s+the\s+other\s+hand|alternatively)\b'
+  - name: rhetorical_questions
+    scope: sentence
+    variants:
+      - pattern: '\b(?:why|how|what|when|where|who)\b.*\?'
+      - pattern: '\b(?:isn''t\s+it|aren''t\s+we|don''t\s+you\s+think)\b.*\?'
+      - pattern: '\b(?:wouldn''t|shouldn''t|couldn''t)\s+.*\?'
+  - name: imperatives
+    scope: sentence
+    variants:
+      - pattern: '^\s*(?:consider|imagine|think\s+about|remember|note\s+that)\b'
+      - pattern: '^\s*(?:let\s+us|let''s)\s+'
+      - pattern: '^\s*(?:please|just|simply|try\s+to)\b'
+  - name: discourse_connectors
+    scope: sentence
+    variants:
+      - pattern: '\b(?:however|nevertheless|nonetheless|therefore|thus|hence)\b'
+      - pattern: '\b(?:in\s+contrast|on\s+the\s+contrary|in\s+fact|indeed)\b'
+      - pattern: '\b(?:for\s+instance|for\s+example|namely|specifically)\b'
+  - name: temporal_relationships
+    scope: sentence
+    variants:
+      - pattern: '\b(?:before|after|during|while|when|since|until)\b'
+      - pattern: '\b(?:previously|subsequently|simultaneously|meanwhile)\b'
+      - pattern: '\b(?:at\s+first|initially|eventually|ultimately|finally)\b'
+  - name: causal_relationships
+    scope: sentence
+    variants:
+      - pattern: '\b(?:because|since|as|due\s+to|owing\s+to)\b'
+      - pattern: '\b(?:therefore|thus|hence|consequently|as\s+a\s+result)\b'
+      - pattern: '\b(?:leads\s+to|results\s+in|causes|triggers)\b'
 word_lists:
   hedges:
     description: words that soften statements

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from src.text_analysis.config_manager import ConfigManager
 from src.text_analysis.text_analyzer import TextAnalyzer
-from src.text_analysis.utils.formatting import format_summary
+from src.text_analysis.utils.formatting import format_summary, format_table
 
 
 def parse_args() -> argparse.Namespace:
@@ -15,9 +15,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("config_path", type=Path, help="Path to config YAML file")
     parser.add_argument(
         "--output-type",
-        choices=["summary", "json"],
+        choices=["summary", "json", "table"],
         default="summary",
-        help="Choose between human-readable summary or raw JSON output",
+        help="Choose output format: summary (insights), json (raw data), or table (metrics)",
+    )
+    parser.add_argument(
+        "--verbosity",
+        choices=["compact", "standard", "detailed"],
+        default="standard",
+        help="Output verbosity: compact (core metrics), standard (main insights), detailed (full analysis)",
     )
     return parser.parse_args()
 
@@ -33,8 +39,10 @@ def main() -> None:
 
     if args.output_type == "json":
         print(json.dumps(result, indent=2))
+    elif args.output_type == "table":
+        print(format_table(result, verbosity=args.verbosity))
     else:
-        print(format_summary(result))
+        print(format_summary(result, verbosity=args.verbosity))
 
 
 if __name__ == "__main__":

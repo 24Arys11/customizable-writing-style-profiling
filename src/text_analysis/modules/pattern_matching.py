@@ -55,7 +55,9 @@ class PatternMatchingModule(AnalysisModule):
                 variant_details[label] = len(pattern.findall(payload.content))
 
             entry_report: Dict[str, Any] = {
-                "variants": variant_details,
+                "variant_counts": list(variant_details.values()),
+                "variant_labels": list(variant_details.keys()),
+                "total_matches": sum(variant_details.values()),
             }
             frequency_value = None
             frequency_key_name = None

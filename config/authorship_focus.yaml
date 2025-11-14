@@ -3,6 +3,8 @@ analysis_flags:
   pattern_metrics: true
   word_list_metrics: true
   lexical_metrics: true
+  syntax_metrics: true
+  punctuation_metrics: true
 regex_patterns:
   - name: rhetorical_contrast
     scope: sentence
