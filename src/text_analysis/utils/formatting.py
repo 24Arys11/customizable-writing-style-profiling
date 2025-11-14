@@ -83,9 +83,6 @@ def _extract_insights(report: Dict[str, Any], verbosity: str = "standard") -> Di
         lexical_insights.append(f"Moderate lexical diversity (TTR: {ttr:.3f})")
     
     yules_k = lexical.get('yules_k', 0)
-    if verbosity in ['standard', 'detailed']:
-        lexical_insights.append(f"Yule's K: {yules_k:.1f} (vocabulary richness measure)")
-    
     if yules_k > 100:
         lexical_insights.append(f"High vocabulary richness (Yule's K: {yules_k:.0f})")
     elif yules_k > 0:
@@ -93,6 +90,21 @@ def _extract_insights(report: Dict[str, Any], verbosity: str = "standard") -> Di
     
     function_ratio = lexical.get('total_function_word_ratio', 0)
     lexical_insights.append(f"Function words: {function_ratio:.1%} (grammatical complexity indicator)")
+    
+    # Add vocabulary sophistication metrics
+    vocab_soph = report.get('vocabulary_sophistication', {})
+    if vocab_soph:
+        avg_syllables = vocab_soph.get('avg_syllables_per_word', 0)
+        formality = vocab_soph.get('formality_score', 0)
+        sophistication = vocab_soph.get('vocabulary_sophistication', 0)
+        if avg_syllables > 0:
+            if formality > 0.01:
+                register = "formal"
+            elif formality < -0.01:
+                register = "informal"
+            else:
+                register = "neutral"
+            lexical_insights.append(f"Vocabulary sophistication: {sophistication:.2f} ({register} register, {avg_syllables:.1f} avg syllables)")
     
     insights['Vocabulary'] = lexical_insights
     
@@ -105,11 +117,11 @@ def _extract_insights(report: Dict[str, Any], verbosity: str = "standard") -> Di
     mean_len = rhythm.get('mean_value', 0)
     
     if cv > 0.7:
-        rhythm_insights.append(f"Highly variable sentence lengths (CV: {cv:.2f}, σ: {std_dev:.1f}) - dynamic rhythm")
+        rhythm_insights.append(f"Highly variable sentence lengths (CV: {cv:.2f}, SD: {std_dev:.1f}) - dynamic rhythm")
     elif cv < 0.3:
-        rhythm_insights.append(f"Consistent sentence lengths (CV: {cv:.2f}, σ: {std_dev:.1f}) - regular flow")
+        rhythm_insights.append(f"Consistent sentence lengths (CV: {cv:.2f}, SD: {std_dev:.1f}) - regular flow")
     else:
-        rhythm_insights.append(f"Moderate sentence variation (CV: {cv:.2f}, σ: {std_dev:.1f})")
+        rhythm_insights.append(f"Moderate sentence variation (CV: {cv:.2f}, SD: {std_dev:.1f})")
     
     autocorr = report.get('rhythm_metrics', {}).get('autocorrelation', {}).get('lag_1_autocorrelation', 0)
     if verbosity in ['standard', 'detailed']:
@@ -402,6 +414,100 @@ def _extract_insights(report: Dict[str, Any], verbosity: str = "standard") -> Di
     if syntax_insights:
         insights['Syntax'] = syntax_insights
     
+    # Stylistic Devices Analysis
+    stylistic = report.get('stylistic_devices', {})
+    if stylistic and verbosity in ['detailed']:
+        stylistic_insights = []
+        alliteration = stylistic.get('alliteration_instances', 0)
+        repetition = stylistic.get('word_repetition_count', 0)
+        metaphors = stylistic.get('metaphors_similes', 0)
+        density = stylistic.get('stylistic_density', 0)
+        variety = stylistic.get('sentence_variety_score', 0)
+        
+        if density > 2.0:
+            stylistic_insights.append(f"Rich stylistic devices ({density:.1f} devices per 100 words)")
+        elif density > 1.0:
+            stylistic_insights.append(f"Moderate stylistic devices ({density:.1f} devices per 100 words)")
+        else:
+            stylistic_insights.append(f"Plain stylistic devices ({density:.1f} devices per 100 words)")
+        
+        if alliteration > 100:
+            stylistic_insights.append(f"High alliteration usage ({alliteration} instances)")
+        elif alliteration > 20:
+            stylistic_insights.append(f"Moderate alliteration usage ({alliteration} instances)")
+        
+        if repetition > 50:
+            stylistic_insights.append(f"Significant repetition patterns ({repetition} instances)")
+        
+        if metaphors > 5:
+            stylistic_insights.append(f"Frequent metaphorical language ({metaphors} instances)")
+        
+        if variety > 0.7:
+            stylistic_insights.append(f"High sentence variety (score: {variety:.2f})")
+        elif variety < 0.4:
+            stylistic_insights.append(f"Low sentence variety (score: {variety:.2f})")
+        
+        if stylistic_insights:
+            insights['Stylistic Devices'] = stylistic_insights
+    
+    # Discourse Flow Analysis
+    discourse = report.get('discourse_flow', {})
+    if discourse and verbosity in ['detailed']:
+        discourse_insights = []
+        transition_density = discourse.get('transition_density', 0)
+        flow_consistency = discourse.get('flow_consistency', 0)
+        topic_consistency = discourse.get('topic_consistency', 0)
+        
+        if transition_density > 8.0:
+            discourse_insights.append(f"High transition word usage ({transition_density:.1f} per 100 words)")
+        elif transition_density < 3.0:
+            discourse_insights.append(f"Minimal transition markers ({transition_density:.1f} per 100 words)")
+        
+        if flow_consistency > 0.6:
+            discourse_insights.append(f"Well-connected discourse (flow: {flow_consistency:.2f})")
+        elif flow_consistency < 0.2:
+            discourse_insights.append(f"Fragmented discourse (flow: {flow_consistency:.2f})")
+        
+        if topic_consistency > 0.7:
+            discourse_insights.append(f"Highly coherent topics (consistency: {topic_consistency:.2f})")
+        elif topic_consistency < 0.3:
+            discourse_insights.append(f"Topic fragmentation (consistency: {topic_consistency:.2f})")
+        
+        if discourse_insights:
+            insights['Discourse Flow'] = discourse_insights
+    
+    # AI Detection Analysis
+    ai_detection = report.get('ai_detection', {})
+    if ai_detection and verbosity in ['detailed']:
+        ai_insights = []
+        ai_likelihood = ai_detection.get('ai_likelihood_score', 0)
+        pattern_density = ai_detection.get('ai_pattern_density', 0)
+        sycophancy = ai_detection.get('sycophancy_count', 0)
+        
+        if ai_likelihood > 0.6:
+            ai_insights.append(f"High AI likelihood (score: {ai_likelihood:.2f})")
+        elif ai_likelihood > 0.4:
+            ai_insights.append(f"Moderate AI characteristics (score: {ai_likelihood:.2f})")
+        elif ai_likelihood < 0.2:
+            ai_insights.append(f"Strong human characteristics (score: {ai_likelihood:.2f})")
+        
+        if pattern_density > 5.0:
+            ai_insights.append(f"High AI pattern density ({pattern_density:.1f}%)")
+        
+        if sycophancy > 5:
+            ai_insights.append(f"Sycophantic language detected ({sycophancy} instances)")
+        
+        # Flattery detection from sentiment
+        sentiment = report.get('sentiment_metrics', {})
+        flattery = sentiment.get('flattery_patterns', {}) if sentiment else {}
+        if flattery:
+            flattery_density = flattery.get('flattery_density', 0)
+            if flattery_density > 0.01:
+                ai_insights.append(f"Excessive flattery detected (density: {flattery_density:.3f})")
+        
+        if ai_insights:
+            insights['AI Detection'] = ai_insights
+    
     return insights
 
 
@@ -523,6 +629,51 @@ def _extract_key_metrics(report: Dict[str, Any], verbosity: str = "standard") ->
     if polarity != 0:
         metrics['Emotional Tone'] = (f"{polarity:+.2f}", _interpret_polarity(polarity))
     
+    # Vocabulary Sophistication (NEW)
+    vocab_soph = report.get('vocabulary_sophistication', {})
+    if vocab_soph:
+        avg_syllables = vocab_soph.get('avg_syllables_per_word', 0)
+        formality = vocab_soph.get('formality_score', 0)
+        sophistication = vocab_soph.get('vocabulary_sophistication', 0)
+        if avg_syllables > 0:
+            metrics['Vocabulary Sophistication'] = (f"Syl:{avg_syllables:.1f} F:{formality:+.2f} S:{sophistication:.2f}", "syllables/formality/sophistication")
+    
+    # Stylistic Devices (NEW)
+    stylistic = report.get('stylistic_devices', {})
+    if stylistic:
+        alliteration = stylistic.get('alliteration_instances', 0)
+        repetition = stylistic.get('word_repetition_count', 0)
+        metaphors = stylistic.get('metaphors_similes', 0)
+        density = stylistic.get('stylistic_density', 0)
+        if density > 0:
+            metrics['Stylistic Devices'] = (f"A:{alliteration} R:{repetition} M:{metaphors} D:{density}", "alliteration/repetition/metaphors/density")
+    
+    # Discourse Flow (NEW)
+    discourse = report.get('discourse_flow', {})
+    if discourse:
+        transition_density = discourse.get('transition_density', 0)
+        flow_consistency = discourse.get('flow_consistency', 0)
+        coherence = discourse.get('topic_consistency', 0)
+        if transition_density > 0:
+            metrics['Discourse Flow'] = (f"T:{transition_density:.1f} F:{flow_consistency:.2f} C:{coherence:.2f}", "transitions/flow/coherence")
+    
+    # Flattery Detection (NEW)
+    flattery = sentiment.get('flattery_patterns', {})
+    if flattery:
+        flattery_density = flattery.get('flattery_density', 0)
+        sycophancy = flattery.get('sycophancy_score', 0)
+        if flattery_density > 0 or sycophancy > 0:
+            metrics['Flattery/Praise'] = (f"F:{flattery_density:.3f} S:{sycophancy:.3f}", "flattery/sycophancy density")
+    
+    # AI Detection (NEW)
+    ai_detection = report.get('ai_detection', {})
+    if ai_detection:
+        ai_likelihood = ai_detection.get('ai_likelihood_score', 0)
+        pattern_density = ai_detection.get('ai_pattern_density', 0)
+        confidence_level = ai_detection.get('confidence_level', '')
+        if ai_likelihood > 0:
+            metrics['AI Likelihood'] = (f"{ai_likelihood:.2f} ({pattern_density:.1f}%)", confidence_level.replace('confidence ', ''))
+
     # Top patterns with more comprehensive display
     pattern_counts = []
     for pattern_name, data in patterns.items():

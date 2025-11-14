@@ -1,0 +1,178 @@
+# AI Text Detection Configuration
+# This configuration is optimized for detecting patterns common in AI-generated text
+# versus human writing, including sycophancy, over-qualification, and stylistic tells.
+
+analysis_flags:
+  sentence_metrics: true
+  pattern_matching: true
+  word_list_metrics: true
+  lexical_metrics: true
+  syntax_metrics: true
+  punctuation_metrics: true
+  sentiment_metrics: true
+  semantic_metrics: true
+  rhythm_metrics: true
+  vocabulary_sophistication: true
+  stylistic_devices: true
+  discourse_flow: true
+
+# Enhanced pattern detection for AI characteristics
+patterns:
+  # AI Sycophancy and Over-Politeness
+  ai_sycophancy:
+    - "I'd be happy to help"
+    - "I'm here to assist"
+    - "Of course! I'd be delighted to"
+    - "Certainly! I can help with that"
+    - "I'm glad you asked"
+    - "Thank you for bringing this up"
+    - "I appreciate your question"
+    - "It's my pleasure to"
+    - "I'm excited to help"
+    - "I understand your concern"
+
+  # Contrastive Negation (AI tendency to over-qualify)
+  contrastive_negation:
+    - "while I can't.*I can"
+    - "although I don't.*I do"
+    - "I can't.*but I can"
+    - "I'm not.*but I am"
+    - "I don't.*however I"
+    - "I won't.*but I will"
+    - "It's not.*but it is"
+    - "This isn't.*but this is"
+    - "rather than.*instead"
+    - "not only.*but also"
+
+  # Hedging and Over-Qualification
+  ai_hedging:
+    - "it seems that"
+    - "it appears that"
+    - "it might be"
+    - "it could be"
+    - "potentially"
+    - "possibly"
+    - "perhaps"
+    - "it's worth noting"
+    - "it's important to note"
+    - "it's worth mentioning"
+    - "it should be noted"
+    - "generally speaking"
+    - "in most cases"
+    - "typically"
+    - "usually"
+
+  # Excessive Structure and Enumeration
+  ai_structure:
+    - "here are.*ways to"
+    - "here's how you can"
+    - "let me break this down"
+    - "let me explain"
+    - "to summarize"
+    - "in summary"
+    - "in conclusion"
+    - "moving forward"
+    - "going forward"
+    - "next steps"
+    - "action items"
+    - "key takeaways"
+
+  # Meta-Commentary (AI talking about its own process)
+  ai_metacommentary:
+    - "I understand you're asking"
+    - "I see what you're looking for"
+    - "based on your question"
+    - "from what I understand"
+    - "if I understand correctly"
+    - "to answer your question"
+    - "regarding your inquiry"
+    - "in response to your"
+    - "as you mentioned"
+    - "building on what you said"
+
+  # Formulaic Responses
+  ai_formulaic:
+    - "great question"
+    - "excellent point"
+    - "that's a good question"
+    - "thanks for asking"
+    - "I'm happy to clarify"
+    - "let me help you with that"
+    - "here's what you need to know"
+    - "the short answer is"
+    - "the key thing to remember"
+    - "the bottom line is"
+
+# Punctuation patterns common in AI text
+punctuation_analysis:
+  em_dash_usage: true          # AI tends to overuse em-dashes for parenthetical remarks
+  colon_usage: true            # Frequent use of colons for explanations
+  semicolon_frequency: true    # AI often uses semicolons more than humans
+  parenthetical_overuse: true  # Excessive use of parentheses for clarification
+  exclamation_patterns: true   # AI exclamation usage patterns
+
+# Stylistic tells for AI detection
+stylistic_tells:
+  transition_word_density: 5.0     # Threshold for excessive transition words (per 100 words)
+  superlative_overuse: 2.0         # Threshold for excessive superlatives
+  hedging_density: 3.0             # Threshold for excessive hedging language
+  meta_reference_density: 1.0      # Threshold for meta-commentary frequency
+  politeness_markers: 2.0          # Threshold for excessive politeness
+  structure_markers: 3.0           # Threshold for excessive structural language
+
+# Vocabulary sophistication indicators
+vocabulary_flags:
+  register_consistency: true       # Check for consistent formality level
+  academic_jargon_overuse: true   # AI tends to overuse academic language inappropriately
+  synonym_variation: true          # AI may show unnatural synonym variation
+  domain_knowledge_signals: true  # Check for superficial vs deep domain knowledge
+
+# Discourse flow patterns
+discourse_indicators:
+  paragraph_uniformity: true       # AI often creates unnaturally uniform paragraphs
+  topic_coherence: true           # Check for artificial topic coherence
+  transition_predictability: true # AI transitions may be too predictable
+  information_density: true       # AI may pack information too densely
+
+# Sentiment and emotion flags  
+emotion_analysis:
+  artificial_enthusiasm: true     # Detect unnaturally positive language
+  emotional_flatness: true       # Detect lack of genuine emotional variation
+  empathy_simulation: true       # Detect simulated rather than genuine empathy
+  sycophancy_detection: true     # Enhanced sycophancy pattern detection
+
+# Syntax complexity indicators
+syntax_patterns:
+  subordinate_clause_overuse: true    # AI may overuse complex subordination
+  passive_voice_patterns: true       # Specific passive voice patterns in AI
+  nominalization_frequency: true     # AI tendency toward nominalization
+  sentence_length_uniformity: true   # Check for unnatural sentence length patterns
+
+# Output customization for AI detection
+output_format:
+  ai_likelihood_score: true      # Calculate overall AI likelihood
+  human_variation_score: true    # Calculate human-like variation
+  confidence_intervals: true     # Provide confidence ranges
+  pattern_explanations: true     # Explain which patterns triggered flags
+
+# Thresholds for AI detection scoring
+ai_detection_thresholds:
+  high_confidence: 0.8      # Score above this suggests likely AI
+  medium_confidence: 0.6    # Score in this range is uncertain
+  low_confidence: 0.4       # Score below this suggests likely human
+  
+# Weight different indicators for overall score
+ai_indicator_weights:
+  sycophancy_patterns: 0.15
+  contrastive_negation: 0.12
+  hedging_overuse: 0.10
+  meta_commentary: 0.08
+  formulaic_responses: 0.08
+  transition_density: 0.08
+  punctuation_tells: 0.07
+  structure_overuse: 0.07
+  vocabulary_sophistication: 0.06
+  discourse_uniformity: 0.06
+  emotional_artificiality: 0.05
+  syntax_patterns: 0.05
+  paragraph_uniformity: 0.03

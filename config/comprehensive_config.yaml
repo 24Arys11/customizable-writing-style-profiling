@@ -1,0 +1,411 @@
+# Comprehensive Text Analysis Configuration
+# Optimized for: Style Transfer, Authorship Identification, AI Detection, and Deep Stylistic Analysis
+# This configuration combines the best features from all analysis modules for maximum insight.
+
+# Enable all analysis modules for comprehensive coverage
+analysis_flags:
+  sentence_stats: true
+  pattern_metrics: true
+  word_list_metrics: true
+  lexical_metrics: true
+  syntax_metrics: true
+  punctuation_metrics: true
+  sentiment_metrics: true
+  semantic_metrics: true
+  rhythm_metrics: true
+  vocabulary_sophistication: true
+  stylistic_devices: true
+  discourse_flow: true
+  ai_detection: true
+
+# Advanced Pattern Detection for Style Transfer & Authorship
+regex_patterns:
+  # Contrastive and Definitional Patterns (strong authorship markers)
+  - name: contrastive_definition
+    scope: sentence
+    variants:
+      - pattern: 'not\s+(?:just|only)\s+[^,]+,?\s+(?:but|rather)'
+      - pattern: 'not\s+only\s+.+?\bbut\b'
+      - pattern: 'it''s\s+not\s+just\s+.+?,\s+it''s\s+.+?'
+      - pattern: 'rather\s+than\s+.+?,\s+(?:it|this|that)\s+'
+      - pattern: 'instead\s+of\s+.+?,\s+(?:we|I|one)\s+'
+      
+  # Rhetorical Strategies (personality markers)
+  - name: rhetorical_questions
+    scope: sentence
+    variants:
+      - pattern: '\b(?:why|how|what|when|where|who)\b.*\?'
+      - pattern: '\b(?:isn''t\s+it|aren''t\s+we|don''t\s+you\s+think)\b.*\?'
+      - pattern: '\b(?:wouldn''t|shouldn''t|couldn''t)\s+.*\?'
+      - pattern: 'what\s+if\s+.*\?'
+      - pattern: 'can\s+you\s+imagine\s+.*\?'
+      
+  # Imperative Constructions (authorial voice)
+  - name: imperatives
+    scope: sentence
+    variants:
+      - pattern: '^\s*(?:consider|imagine|think\s+about|remember|note\s+that)\b'
+      - pattern: '^\s*(?:let\s+us|let''s)\s+'
+      - pattern: '^\s*(?:please|just|simply|try\s+to)\b'
+      - pattern: '^\s*(?:look\s+at|observe|notice|pay\s+attention\s+to)\b'
+      - pattern: '^\s*(?:suppose|assume|pretend|envision)\b'
+      
+  # Enumeration and Structure Markers (organizational style)
+  - name: enumeration_markers
+    scope: sentence
+    variants:
+      - pattern: '\b(?:first|firstly|initially|to\s+begin\s+with)\b'
+      - pattern: '\b(?:second|secondly|next|then|furthermore|additionally|moreover)\b'
+      - pattern: '\b(?:third|thirdly|finally|lastly|in\s+conclusion|ultimately)\b'
+      - pattern: '\b(?:on\s+one\s+hand|on\s+the\s+other\s+hand|alternatively)\b'
+      - pattern: '\b(?:in\s+the\s+first\s+place|to\s+start\s+with|most\s+importantly)\b'
+      
+  # Discourse Connectors (logical flow patterns)
+  - name: discourse_connectors
+    scope: sentence
+    variants:
+      - pattern: '\b(?:however|nevertheless|nonetheless|therefore|thus|hence)\b'
+      - pattern: '\b(?:in\s+contrast|on\s+the\s+contrary|in\s+fact|indeed)\b'
+      - pattern: '\b(?:for\s+instance|for\s+example|namely|specifically)\b'
+      - pattern: '\b(?:furthermore|moreover|in\s+addition|what''s\s+more)\b'
+      - pattern: '\b(?:meanwhile|simultaneously|at\s+the\s+same\s+time)\b'
+      
+  # Temporal Relationships (narrative style)
+  - name: temporal_relationships
+    scope: sentence
+    variants:
+      - pattern: '\b(?:before|after|during|while|when|since|until)\b'
+      - pattern: '\b(?:previously|subsequently|simultaneously|meanwhile)\b'
+      - pattern: '\b(?:at\s+first|initially|eventually|ultimately|finally)\b'
+      - pattern: '\b(?:once\s+upon\s+a\s+time|long\s+ago|in\s+the\s+past)\b'
+      - pattern: '\b(?:nowadays|currently|at\s+present|these\s+days)\b'
+      
+  # Causal Relationships (reasoning patterns)
+  - name: causal_relationships
+    scope: sentence
+    variants:
+      - pattern: '\b(?:because|since|as|due\s+to|owing\s+to)\b'
+      - pattern: '\b(?:therefore|thus|hence|consequently|as\s+a\s+result)\b'
+      - pattern: '\b(?:leads\s+to|results\s+in|causes|triggers)\b'
+      - pattern: '\b(?:stems\s+from|originates\s+from|arises\s+from)\b'
+      - pattern: '\b(?:if.*then|when.*then|should.*then)\b'
+      
+  # Epistemic Stance (certainty/uncertainty markers)
+  - name: epistemic_markers
+    scope: sentence
+    variants:
+      - pattern: '\b(?:certainly|definitely|undoubtedly|clearly|obviously)\b'
+      - pattern: '\b(?:probably|likely|presumably|apparently|seemingly)\b'
+      - pattern: '\b(?:possibly|perhaps|maybe|potentially|conceivably)\b'
+      - pattern: '\b(?:I\s+believe|I\s+think|I\s+suspect|I\s+doubt)\b'
+      - pattern: '\b(?:in\s+my\s+opinion|from\s+my\s+perspective|it\s+seems\s+to\s+me)\b'
+
+# Comprehensive Word Lists for Multi-Purpose Analysis
+word_lists:
+  # High-discriminating function words for authorship identification
+  authorship_markers:
+    description: top function words that distinguish individual writing styles
+    terms:
+      - and
+      - the
+      - but
+      - however
+      - therefore
+      - although
+      - while
+      - because
+      - that
+      - which
+      - who
+      - when
+      - where
+      - what
+      - how
+      - why
+      - very
+      - quite
+      - rather
+      - really
+      
+  # Hedging devices (uncertainty/politeness markers)
+  hedges:
+    description: words that soften statements and show uncertainty
+    terms:
+      - maybe
+      - perhaps
+      - somewhat
+      - apparently
+      - presumably
+      - likely
+      - roughly
+      - approximately
+      - allegedly
+      - supposedly
+      - presumably
+      - possibly
+      - potentially
+      - arguably
+      - conceivably
+      
+  # Intensifiers and boosters (emphasis patterns)
+  intensifiers:
+    description: words that amplify tone and emphasis
+    terms:
+      - very
+      - extremely
+      - remarkably
+      - utterly
+      - absolutely
+      - completely
+      - totally
+      - entirely
+      - thoroughly
+      - incredibly
+      - tremendously
+      - exceptionally
+      - extraordinarily
+      - particularly
+      - especially
+      
+  # Emotion and evaluation words (sentiment indicators)
+  emotion_markers:
+    description: words that carry emotional or evaluative weight
+    terms:
+      - amazing
+      - wonderful
+      - terrible
+      - awful
+      - fantastic
+      - brilliant
+      - stupid
+      - ridiculous
+      - beautiful
+      - ugly
+      - love
+      - hate
+      - adore
+      - despise
+      - fascinating
+      
+  # Academic and formal vocabulary (register indicators)
+  academic_vocabulary:
+    description: words indicating formal or academic register
+    terms:
+      - furthermore
+      - moreover
+      - nevertheless
+      - consequently
+      - subsequently
+      - empirical
+      - theoretical
+      - methodology
+      - paradigm
+      - hypothesis
+      - analysis
+      - synthesis
+      - criterion
+      - phenomenon
+      - demonstrate
+      
+  # Conversational and informal markers (register indicators)
+  conversational_markers:
+    description: words and phrases indicating informal register
+    terms:
+      - yeah
+      - okay
+      - stuff
+      - things
+      - guys
+      - basically
+      - actually
+      - literally
+      - totally
+      - really
+      - pretty
+      - kinda
+      - sorta
+      - wanna
+      - gonna
+
+# AI Detection Patterns (comprehensive coverage)
+ai_detection_patterns:
+  # Sycophancy and over-politeness
+  sycophancy:
+    - "I'd be happy to help"
+    - "I'm here to assist"
+    - "Of course! I'd be delighted to"
+    - "Certainly! I can help with that"
+    - "I'm glad you asked"
+    - "Thank you for bringing this up"
+    - "I appreciate your question"
+    - "It's my pleasure to"
+    - "I'm excited to help"
+    - "I understand your concern"
+    - "Great question!"
+    - "Excellent point!"
+    - "That's a wonderful question"
+    
+  # Contrastive negation patterns
+  contrastive_negation:
+    - "while I can't.*I can"
+    - "although I don't.*I do"
+    - "I can't.*but I can"
+    - "I'm not.*but I am"
+    - "I don't.*however I"
+    - "I won't.*but I will"
+    - "It's not.*but it is"
+    - "This isn't.*but this is"
+    
+  # Hedging and over-qualification
+  ai_hedging:
+    - "it seems that"
+    - "it appears that"
+    - "it might be"
+    - "it could be"
+    - "it's worth noting"
+    - "it's important to note"
+    - "it's worth mentioning"
+    - "it should be noted"
+    - "generally speaking"
+    - "in most cases"
+    
+  # Meta-commentary
+  meta_commentary:
+    - "I understand you're asking"
+    - "I see what you're looking for"
+    - "based on your question"
+    - "from what I understand"
+    - "if I understand correctly"
+    - "to answer your question"
+    - "regarding your inquiry"
+    - "in response to your"
+
+# Analysis Metrics and Thresholds
+metrics:
+  normalization_basis: 1000  # per-1k words frequency
+  
+  # Style transfer relevance weights
+  style_transfer_weights:
+    sentence_length_variation: 0.15
+    vocabulary_sophistication: 0.15
+    punctuation_patterns: 0.12
+    syntactic_complexity: 0.12
+    discourse_markers: 0.10
+    rhythm_patterns: 0.10
+    stylistic_devices: 0.08
+    function_word_usage: 0.08
+    semantic_coherence: 0.05
+    sentiment_patterns: 0.05
+    
+  # Authorship identification weights
+  authorship_weights:
+    function_words: 0.25
+    punctuation_habits: 0.20
+    sentence_structure: 0.15
+    vocabulary_choice: 0.15
+    discourse_patterns: 0.10
+    rhythm_metrics: 0.08
+    syntactic_preferences: 0.07
+    
+  # AI detection thresholds
+  ai_detection_thresholds:
+    high_confidence: 0.8
+    medium_confidence: 0.6
+    low_confidence: 0.4
+    
+  # Sophistication thresholds
+  sophistication_thresholds:
+    high_sophistication: 0.7
+    medium_sophistication: 0.5
+    low_sophistication: 0.3
+
+# Advanced Analysis Parameters
+analysis_parameters:
+  # Sentence complexity analysis
+  sentence_analysis:
+    min_length_for_complexity: 10
+    max_length_for_readability: 40
+    subordinate_clause_threshold: 2
+    
+  # Vocabulary sophistication
+  vocabulary_analysis:
+    syllable_complexity_weight: 0.4
+    formality_weight: 0.3
+    academic_vocabulary_weight: 0.3
+    rare_word_threshold: 0.01  # words appearing in <1% of general corpus
+    
+  # Stylistic device detection
+  stylistic_analysis:
+    alliteration_min_length: 3
+    repetition_window: 5  # words
+    parallel_structure_min_length: 4
+    metaphor_detection: true
+    
+  # Discourse flow analysis
+  discourse_analysis:
+    coherence_window: 3  # sentences
+    transition_density_threshold: 5.0  # per 100 words
+    topic_shift_threshold: 0.6
+    
+  # Rhythm and sound patterns
+  rhythm_analysis:
+    stress_pattern_analysis: true
+    syllable_rhythm_detection: true
+    phonetic_clustering: true
+
+# Output Configuration
+output:
+  format: json  # json, table, summary, all
+  verbose: true
+  
+  # Include specific analysis sections
+  include_sections:
+    basic_statistics: true
+    authorship_markers: true
+    style_transfer_metrics: true
+    ai_detection_results: true
+    sophistication_analysis: true
+    discourse_patterns: true
+    emotional_analysis: true
+    comparative_analysis: true
+    
+  # Detailed breakdowns
+  detailed_analysis:
+    pattern_explanations: true
+    confidence_intervals: true
+    threshold_comparisons: true
+    recommendation_suggestions: true
+    
+  # Visualization aids (for future implementation)
+  visualization_hints:
+    style_radar_chart: true
+    authorship_similarity_matrix: true
+    ai_confidence_timeline: true
+    sophistication_progression: true
+
+# Quality Control and Validation
+quality_control:
+  min_text_length: 100  # minimum words for reliable analysis
+  max_text_length: 50000  # maximum words to prevent memory issues
+  confidence_reporting: true
+  uncertainty_flagging: true
+  
+  # Statistical validation
+  statistical_validation:
+    significance_threshold: 0.05
+    bootstrap_iterations: 1000
+    cross_validation_folds: 5
+
+# Extensibility Configuration
+extensibility:
+  custom_patterns_enabled: true
+  user_vocabulary_lists: true
+  domain_specific_analysis: true
+  temporal_analysis: true  # track changes over time in longer texts
+  
+  # Plugin architecture preparation
+  plugin_hooks:
+    pre_analysis: []
+    post_analysis: []
+    custom_metrics: []
+    custom_visualizations: []

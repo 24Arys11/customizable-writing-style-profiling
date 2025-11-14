@@ -35,6 +35,7 @@ class SentimentMetrics(AnalysisModule):
         person_perspective = self._analyze_person_perspective(doc, sentences) if doc else {}
         confidence_markers = self._analyze_confidence(sentences)
         hate_speech_indicators = self._analyze_hate_speech(sentences)
+        flattery_patterns = self._analyze_flattery(sentences)
         
         # Basic sentiment lexicon scoring
         for sentence in sentences:
@@ -49,6 +50,7 @@ class SentimentMetrics(AnalysisModule):
             "person_perspective": person_perspective,
             "confidence_markers": confidence_markers,
             "hate_speech_indicators": hate_speech_indicators,
+            "flattery_patterns": flattery_patterns,
             "sentiment_distribution": self._categorize_sentiments(sentiment_scores)
         }
 
@@ -326,4 +328,83 @@ class SentimentMetrics(AnalysisModule):
             "negative_ratio": negative / total if total > 0 else 0.0,
             "neutral_ratio": neutral / total if total > 0 else 0.0,
             "sentiment_polarity": (positive - negative) / total if total > 0 else 0.0
+        }
+
+    def _analyze_flattery(self, sentences: list[str]) -> dict[str, Any]:
+        """Analyze flattery, praise, and sycophantic patterns."""
+        # Flattery and praise indicators
+        flattery_words = {
+            'direct_praise': ['amazing', 'brilliant', 'excellent', 'outstanding', 'exceptional', 'superb',
+                             'magnificent', 'incredible', 'wonderful', 'fantastic', 'marvelous', 'spectacular'],
+            'excessive_positives': ['absolutely', 'totally', 'completely', 'perfectly', 'extremely',
+                                   'incredibly', 'utterly', 'tremendously', 'extraordinarily'],
+            'superlatives': ['best', 'greatest', 'finest', 'most', 'ultimate', 'supreme', 'perfect',
+                           'unmatched', 'unparalleled', 'incomparable', 'flawless'],
+            'sycophantic': ['honored', 'privilege', 'grateful', 'thankful', 'blessed', 'humbled',
+                          'impressed', 'inspired', 'admire', 'respect']
+        }
+        
+        # Flattery patterns
+        flattery_patterns = [
+            r'(?:you\s+are|you\'re)\s+(?:so|very|really|absolutely|incredibly|amazingly)\s+\w+',
+            r'i\s+(?:love|adore|admire|respect)\s+(?:how|the\s+way|that)',
+            r'(?:thank\s+you|thanks)\s+(?:so\s+much|very\s+much|a\s+lot)',
+            r'you\s+(?:always|never\s+fail\s+to|consistently)\s+\w+',
+            r'(?:what\s+a|such\s+a)\s+\w+\s+\w+',  # "what a great idea"
+            r'i\s+(?:couldn\'t|can\'t)\s+agree\s+more',
+            r'(?:absolutely|totally|completely)\s+(?:right|correct|true|agree)',
+        ]
+        
+        # AI assistant sycophancy patterns
+        ai_sycophancy = [
+            r'(?:of\s+course|certainly|absolutely),?\s+i\'?d?\s+be\s+(?:happy|glad|delighted)\s+to',
+            r'i\'?m?\s+(?:here\s+to\s+help|at\s+your\s+service)',
+            r'(?:great|excellent|wonderful)\s+(?:question|point|idea|suggestion)',
+            r'that\'?s\s+(?:a\s+)?(great|excellent|wonderful|fantastic)\s+\w+',
+            r'i\s+(?:completely|totally|absolutely)\s+understand',
+            r'you\'?re?\s+(?:absolutely|totally|completely)\s+(?:right|correct)',
+        ]
+        
+        flattery_counts = {category: 0 for category in flattery_words.keys()}
+        pattern_matches = 0
+        ai_sycophancy_count = 0
+        total_words = 0
+        
+        for sentence in sentences:
+            sentence_lower = sentence.lower()
+            words = sentence_lower.split()
+            total_words += len(words)
+            
+            # Count flattery words by category
+            for category, word_list in flattery_words.items():
+                for word in words:
+                    if word in word_list:
+                        flattery_counts[category] += 1
+            
+            # Count flattery patterns
+            for pattern in flattery_patterns:
+                if re.search(pattern, sentence_lower):
+                    pattern_matches += 1
+            
+            # Count AI sycophancy patterns
+            for pattern in ai_sycophancy:
+                if re.search(pattern, sentence_lower):
+                    ai_sycophancy_count += 1
+        
+        # Calculate total flattery score
+        total_flattery_words = sum(flattery_counts.values())
+        flattery_density = (total_flattery_words + pattern_matches) / total_words if total_words > 0 else 0.0
+        
+        # Calculate sycophancy score (specific for AI-generated text)
+        sycophancy_score = ai_sycophancy_count / len(sentences) if sentences else 0.0
+        
+        return {
+            'flattery_word_counts': flattery_counts,
+            'total_flattery_words': total_flattery_words,
+            'flattery_patterns': pattern_matches,
+            'ai_sycophancy_patterns': ai_sycophancy_count,
+            'flattery_density': round(flattery_density, 4),
+            'sycophancy_score': round(sycophancy_score, 4),
+            'praise_intensity': round((flattery_counts.get('excessive_positives', 0) + 
+                                     flattery_counts.get('superlatives', 0)) / total_words if total_words > 0 else 0.0, 4)
         }

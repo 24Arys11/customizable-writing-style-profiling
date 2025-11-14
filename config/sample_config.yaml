@@ -8,6 +8,10 @@ analysis_flags:
   sentiment_metrics: true
   semantic_metrics: true
   rhythm_metrics: true
+  vocabulary_sophistication: true
+  stylistic_devices: true
+  discourse_flow: true
+  ai_detection: true
 regex_patterns:
   - name: contrastive_definition
     scope: sentence

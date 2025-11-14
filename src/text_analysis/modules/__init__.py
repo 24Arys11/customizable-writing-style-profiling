@@ -7,10 +7,14 @@ from .punctuation_metrics import PunctuationMetrics
 from .sentiment_metrics import SentimentMetrics
 from .semantic_metrics import SemanticMetrics
 from .rhythm_metrics import RhythmMetrics
+from .vocabulary_sophistication import VocabularySophisticationMetric
+from .stylistic_devices import StylisticDeviceMetric
+from .discourse_flow import DiscourseFlowMetric
+from .ai_detection import AIDetectionMetric
 
 __all__ = [
     "PatternMatchingModule",
-    "SentenceMetrics",
+    "SentenceMetrics", 
     "WordListMetrics",
     "LexicalMetrics",
     "SyntaxMetrics",
@@ -18,4 +22,8 @@ __all__ = [
     "SentimentMetrics",
     "SemanticMetrics",
     "RhythmMetrics",
+    "VocabularySophisticationMetric",
+    "StylisticDeviceMetric",
+    "DiscourseFlowMetric",
+    "AIDetectionMetric",
 ]

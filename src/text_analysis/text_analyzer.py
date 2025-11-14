@@ -7,6 +7,8 @@ from typing import Any, Dict, List
 from .config_manager import AnalysisConfig
 from .aggregator import Aggregator
 from .modules import (
+    AIDetectionMetric,
+    DiscourseFlowMetric,
     LexicalMetrics,
     PatternMatchingModule,
     PunctuationMetrics,
@@ -14,7 +16,9 @@ from .modules import (
     SentenceMetrics,
     SentimentMetrics,
     SemanticMetrics,
+    StylisticDeviceMetric,
     SyntaxMetrics,
+    VocabularySophisticationMetric,
     WordListMetrics,
 )
 from .preprocessing import Preprocessor
@@ -45,6 +49,10 @@ class TextAnalyzer:
             SentimentMetrics(self._config),
             SemanticMetrics(self._config),
             RhythmMetrics(self._config),
+            VocabularySophisticationMetric(self._config),
+            StylisticDeviceMetric(self._config),
+            DiscourseFlowMetric(self._config),
+            AIDetectionMetric(self._config),
         ]
         return [module for module in modules if module.enabled()]
 
